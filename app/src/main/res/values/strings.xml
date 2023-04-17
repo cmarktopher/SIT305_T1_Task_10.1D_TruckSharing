@@ -9,5 +9,13 @@
     <string name="password_text_view_label">Password: </string>
     <string name="username_hint_label">Enter your name</string>
     <string name="password_hint_label">Enter your password </string>
+    <string name="add_image_text_label">Add Image</string>
+    <string name="signup_add_image_desc">Press to add image</string>
+    <string name="sign_up_full_name_hint">Full Name</string>
+    <string name="sign_up_user_name_hint">User Name</string>
+    <string name="sign_up_password_hint">Password</string>
+    <string name="sign_up_confirm_password_hint">Confirm Password</string>
+    <string name="sign_up_phone_hint">Phone Number</string>
+    <string name="sign_up_create_account_button_label">Create Account</string>
 
 </resources>
