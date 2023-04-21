@@ -32,7 +32,7 @@ public class UserRepository {
     // Get a user by user name
     public User getUserByUserName(String userName){
 
-        FutureTask<User> futureTask = new FutureTask<>(() -> usersDAO.getUserByUserName(userName.toLowerCase()));
+        FutureTask<User> futureTask = new FutureTask<>(() -> usersDAO.getUserByUserName(userName));
         TruckSharingDatabase.getDatabase(currentApplication).databaseWriteExecutor.execute(futureTask);
 
         User user = null;
@@ -59,7 +59,7 @@ public class UserRepository {
         // TODO Perform password hashing here
 
         // Insert the user to the database
-        TruckSharingDatabase.getDatabase(currentApplication).databaseWriteExecutor.execute(() -> {
+        TruckSharingDatabase.databaseWriteExecutor.execute(() -> {
             usersDAO.insertNewUser(user);
         });
     }

@@ -65,7 +65,13 @@ public class LogInFragment extends Fragment {
 
                 if (user.passWord.equals(password)){
 
-                    Log.d("Authentication", "Password Match");
+                    FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.transition_in, R.anim.transition_out, R.anim.transition_in, R.anim.transition_out)
+                            .setReorderingAllowed(true)
+                            .replace(R.id.coreFragmentContainer, HomeFragment.newInstance(), null)
+                            .commit();
+
                     return;
                 }
 
