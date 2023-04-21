@@ -26,4 +26,11 @@ public class User {
 
     @ColumnInfo(name = "phone_number")
     public String phoneNumber;
+
+    public User(String fullName, String userName, String passWord, String phoneNumber) {
+        this.fullName = fullName;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.phoneNumber = phoneNumber;
+    }
 }

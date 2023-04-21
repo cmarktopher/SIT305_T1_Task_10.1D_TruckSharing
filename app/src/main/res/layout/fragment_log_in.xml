@@ -61,7 +61,7 @@
 
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/logInFullNameInputLayout"
+                        android:id="@+id/logInUserNameInputLayout"
                         android:layout_width="0dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="5dp"
@@ -73,7 +73,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/logInFullNameInputView"
+                            android:id="@+id/logInUserNameInputView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/username_hint_label"
