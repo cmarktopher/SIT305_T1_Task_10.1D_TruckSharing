@@ -17,5 +17,13 @@
     <string name="sign_up_confirm_password_hint">Confirm Password</string>
     <string name="sign_up_phone_hint">Phone Number</string>
     <string name="sign_up_create_account_button_label">Create Account</string>
+    <string name="add_new_delivery_button">Add New Delivery</string>
+    <string name="add_new_delivery_title">New Delivery</string>
+    <string name="new_delivery_receiver_name">Receiver Name:</string>
+    <string name="newDeliveryPickUpLabel">Pick Up Date:</string>
+    <string name="new_delivery_pick_up_time">Pick Up Time</string>
+    <string name="new_delivery_pick_up_location">Pick Up Location</string>
+    <string name="new_delivery_next_button">Next</string>
+    <string name="new_delivery_good_types">Good Types: </string>
 
 </resources>

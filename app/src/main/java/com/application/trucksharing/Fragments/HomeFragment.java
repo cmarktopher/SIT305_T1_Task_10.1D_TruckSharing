@@ -2,7 +2,9 @@ package com.application.trucksharing.Fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +20,7 @@ import com.application.trucksharing.RecyclerViews.AvailableTrucksAdapter;
 import com.application.trucksharing.ViewModels.AvailableTruckViewModel;
 import com.application.trucksharing.databinding.FragmentHomeBinding;
 import com.application.trucksharing.databinding.FragmentLogInBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +77,19 @@ public class HomeFragment extends Fragment {
             availableTrucks.clear();
             availableTrucks.addAll(items);
             availableTrucksAdapter.notifyDataSetChanged();
+        });
+
+        // Bind to add new delivery button
+        FloatingActionButton newDeliveryButton = view.findViewById(R.id.newDeliveryButton);
+        newDeliveryButton.setOnClickListener(newDeliveryButtonView -> {
+
+            FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.transition_in, R.anim.transition_out, R.anim.transition_in, R.anim.transition_out)
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .replace(R.id.coreFragmentContainer, NewDeliveryFragmentPageOne.newInstance(), null)
+                    .commit();
         });
 
         return view;
