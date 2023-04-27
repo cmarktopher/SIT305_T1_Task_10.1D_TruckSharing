@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey;
  * it seems storing an image into a database is not a good idea
  * So, I think the way I'll handle this is store some kind of url or path to an image.
  * For a local database, perhaps I'll store a path to a local storage of truck images.
- * If this ever gets moved from this local database to a database over the net such as  firebase,
+ * If this ever gets moved from this local database to a database over the net such as firebase,
  * I think we would hold a ref/link to another server containing our images (just an assumption, haven't research this yet.).
  */
 

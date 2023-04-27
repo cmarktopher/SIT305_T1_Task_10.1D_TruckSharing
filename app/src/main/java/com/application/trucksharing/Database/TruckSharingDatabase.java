@@ -11,8 +11,10 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.application.trucksharing.DataAccessObjects.AvailableTruckDAO;
+import com.application.trucksharing.DataAccessObjects.DeliveryOrderDAO;
 import com.application.trucksharing.DataAccessObjects.UsersDAO;
 import com.application.trucksharing.DataModels.AvailableTruck;
+import com.application.trucksharing.DataModels.DeliveryOrder;
 import com.application.trucksharing.DataModels.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,7 +22,7 @@ import java.util.concurrent.Executors;
 /**
  * Database for the entire truck sharing up.
  */
-@Database(entities = {User.class, AvailableTruck.class}, version = 2)
+@Database(entities = {User.class, AvailableTruck.class, DeliveryOrder.class}, version = 2)
 public abstract class TruckSharingDatabase extends RoomDatabase {
 
         // Keep track of the single instance of this database
@@ -29,6 +31,7 @@ public abstract class TruckSharingDatabase extends RoomDatabase {
         // Our DAO containing our queries
         public abstract UsersDAO usersDao();
         public abstract AvailableTruckDAO availableTruckDAO();
+        public abstract DeliveryOrderDAO deliveryOrderDAO();
 
         // Executor service that will be needed for queries to run on a background thread
         private static final int NUMBER_OF_THREADS = 4;

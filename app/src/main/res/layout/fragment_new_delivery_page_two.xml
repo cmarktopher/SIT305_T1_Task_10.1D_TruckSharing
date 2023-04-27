@@ -55,11 +55,11 @@
                         app:boxBackgroundColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+                        app:layout_constraintStart_toEndOf="@+id/goodTypesRadioGroup"
                         tools:ignore="HardcodedText">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/newDeliveryReceiverNameInput"
+                            android:id="@+id/goodTypeOtherInput"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="textStart"
@@ -68,7 +68,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <RadioGroup
-                        android:id="@+id/radioGroup"
+                        android:id="@+id/goodTypesRadioGroup"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -124,94 +124,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="Weight and Dimension:"
-                    android:textAlignment="viewStart"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="50dp"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:hint="Other"
-                        android:textAlignment="center"
-                        android:textColorHint="@color/hint_color"
-                        app:boxBackgroundColor="@color/white"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/radioGroup2"
-                        tools:ignore="HardcodedText">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/vehicleTypeOtherInput"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="textStart"
-                            android:textColorHint="@color/black"
-                            tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize,TextContrastCheck" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <RadioGroup
-                        android:id="@+id/radioGroup2"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <RadioButton
-                            android:id="@+id/truckRadioButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Truck"
-                            android:textSize="12sp"
-                            tools:ignore="HardcodedText" />
-
-                        <RadioButton
-                            android:id="@+id/vanRadioButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Van"
-                            android:textSize="12sp"
-                            tools:ignore="HardcodedText" />
-
-                        <RadioButton
-                            android:id="@+id/refrigeratedTruckRadioButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Refrigerated Truck"
-                            android:textSize="12sp"
-                            tools:ignore="HardcodedText" />
-
-                        <RadioButton
-                            android:id="@+id/miniTruckRadioButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Mini-truck"
-                            android:textSize="12sp"
-                            tools:ignore="HardcodedText" />
-
-                        <RadioButton
-                            android:id="@+id/vehicleTypeOtherRadioButon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Other"
-                            tools:ignore="HardcodedText,VisualLintBounds" />
-
-                    </RadioGroup>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Vehicle Type:"
                     android:textAlignment="viewStart"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -329,6 +241,94 @@
                         android:orientation="horizontal"
                         app:layout_constraintGuide_percent="1.0" />
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Vehicle Type:"
+                    android:textAlignment="viewStart"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="50dp"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="Other"
+                        android:textAlignment="center"
+                        android:textColorHint="@color/hint_color"
+                        app:boxBackgroundColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/vehicleTypeRadioGroup"
+                        tools:ignore="HardcodedText">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/vehicleTypeOtherInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="textStart"
+                            android:textColorHint="@color/black"
+                            tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize,TextContrastCheck" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <RadioGroup
+                        android:id="@+id/vehicleTypeRadioGroup"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <RadioButton
+                            android:id="@+id/truckRadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Truck"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <RadioButton
+                            android:id="@+id/vanRadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Van"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <RadioButton
+                            android:id="@+id/refrigeratedTruckRadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Refrigerated Truck"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <RadioButton
+                            android:id="@+id/miniTruckRadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mini-truck"
+                            android:textSize="12sp"
+                            tools:ignore="HardcodedText" />
+
+                        <RadioButton
+                            android:id="@+id/vehicleTypeOtherRadioButon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Other"
+                            tools:ignore="HardcodedText,VisualLintBounds" />
+
+                    </RadioGroup>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.button.MaterialButton

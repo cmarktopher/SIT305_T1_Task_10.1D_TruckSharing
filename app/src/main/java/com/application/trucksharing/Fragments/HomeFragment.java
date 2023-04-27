@@ -8,20 +8,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.application.trucksharing.DataModels.AvailableTruck;
 import com.application.trucksharing.R;
 import com.application.trucksharing.RecyclerViews.AvailableTrucksAdapter;
 import com.application.trucksharing.ViewModels.AvailableTruckViewModel;
-import com.application.trucksharing.databinding.FragmentHomeBinding;
-import com.application.trucksharing.databinding.FragmentLogInBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +59,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Get UI Elements
-        RecyclerView availableTrucksRecyclerView = view.findViewById(R.id.availableTrucksRecyclerView);
+        RecyclerView availableTrucksRecyclerView = view.findViewById(R.id.ordersRecyclerView);
 
         // Create and bind recycler view adapter to the recycler view
         AvailableTrucksAdapter availableTrucksAdapter = new AvailableTrucksAdapter(requireActivity(), availableTrucks);
@@ -89,6 +85,18 @@ public class HomeFragment extends Fragment {
                     .setReorderingAllowed(true)
                     .addToBackStack(null)
                     .replace(R.id.coreFragmentContainer, NewDeliveryFragmentPageOne.newInstance(), null)
+                    .commit();
+        });
+
+        // Bind to show menu button
+        ImageButton showMenuButton = view.findViewById(R.id.showHomeMenuButton);
+        showMenuButton.setOnClickListener(showHomeMenuView -> {
+
+            FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .add(R.id.coreFragmentContainer, NavigationMenuFragment.newInstance(), null)
                     .commit();
         });
 
