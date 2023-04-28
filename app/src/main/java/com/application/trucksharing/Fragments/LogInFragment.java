@@ -13,6 +13,7 @@ import com.application.trucksharing.DataModels.User;
 import com.application.trucksharing.R;
 import com.application.trucksharing.ViewModels.UserViewModel;
 import com.application.trucksharing.databinding.FragmentLogInBinding;
+import com.google.android.material.transition.MaterialFadeThrough;
 
 /**
  * Fragment for the log in page - this will also be the entry view the user sees when opening the app
@@ -33,6 +34,7 @@ public class LogInFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
+        handleFragmentTransitions();
     }
 
     @Override
@@ -43,23 +45,30 @@ public class LogInFragment extends Fragment {
         FragmentLogInBinding binding = FragmentLogInBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        // Bind to log in button
-        binding.loginButton.setOnClickListener(nClickView -> {
 
-            handleLogIn(binding);
-        });
+        // Bind to log in button
+        binding.loginButton.setOnClickListener(nClickView -> handleLogIn(binding));
 
         // Bind to sign up button so that we can transition to sign up fragment which has the sign up form
-        binding.signUpButton.setOnClickListener(onClickView -> {
-
-            FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setReorderingAllowed(true)
-                    .replace(R.id.coreFragmentContainer, SignUpFragment.newInstance(), null)
-                    .commit();
-        });
+        binding.signUpButton.setOnClickListener(onClickView -> handleSignUp(binding));
 
         return view;
+    }
+
+    /**
+     * Just a simple method to apply Material Motion's Fade Through animation.
+     */
+    private void handleFragmentTransitions(){
+
+        MaterialFadeThrough enterFadeThrough = new MaterialFadeThrough();
+        enterFadeThrough.setDuration(getResources().getInteger(R.integer.fade_through_enter_duration));
+
+        MaterialFadeThrough exitFadeThrough = new MaterialFadeThrough();
+        exitFadeThrough.setDuration(getResources().getInteger(R.integer.fade_through_exit_duration));
+
+        setEnterTransition(enterFadeThrough);
+        setExitTransition(exitFadeThrough);
+
     }
 
     /**
@@ -95,5 +104,19 @@ public class LogInFragment extends Fragment {
 
             binding.logInUserNameInputLayout.setError("User not Found");
         }
+    }
+
+    /**
+     * Handle transition to sign up form when clicked
+     * @param binding
+     */
+    private void handleSignUp(FragmentLogInBinding binding){
+
+        FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .replace(R.id.coreFragmentContainer, SignUpFragment.newInstance(), null)
+                .commit();
     }
 }

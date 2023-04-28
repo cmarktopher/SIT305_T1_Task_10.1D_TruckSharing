@@ -15,6 +15,7 @@ import com.application.trucksharing.DataModels.User;
 import com.application.trucksharing.R;
 import com.application.trucksharing.ViewModels.UserViewModel;
 import com.application.trucksharing.databinding.FragmentSignUpBinding;
+import com.google.android.material.transition.MaterialFadeThrough;
 
 /**
  * Fragment for the sign up form
@@ -37,6 +38,7 @@ public class SignUpFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
+        handleFragmentTransitions();
     }
 
     @Override
@@ -80,5 +82,17 @@ public class SignUpFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void handleFragmentTransitions(){
+
+        MaterialFadeThrough enterFadeThrough = new MaterialFadeThrough();
+        enterFadeThrough.setDuration(getResources().getInteger(R.integer.fade_through_enter_duration));
+
+        MaterialFadeThrough exitFadeThrough = new MaterialFadeThrough();
+        exitFadeThrough.setDuration(getResources().getInteger(R.integer.fade_through_exit_duration));
+
+        setEnterTransition(enterFadeThrough);
+        setExitTransition(exitFadeThrough);
     }
 }
