@@ -1,17 +1,14 @@
 package com.application.trucksharing.Fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.application.trucksharing.DataModels.User;
 import com.application.trucksharing.R;
 import com.application.trucksharing.ViewModels.UserViewModel;
@@ -28,10 +25,7 @@ public class LogInFragment extends Fragment {
 
     public static LogInFragment newInstance() {
 
-        LogInFragment fragment = new LogInFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new LogInFragment();
     }
 
     @Override
@@ -52,35 +46,7 @@ public class LogInFragment extends Fragment {
         // Bind to log in button
         binding.loginButton.setOnClickListener(nClickView -> {
 
-            String userName = binding.logInUserNameInputView.getText().toString();
-            String password = binding.logInPasswordInputView.getText().toString();
-
-            // Get the user and compare the password - will need a better way to handle authentication I reckon...
-            UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-            User user = userViewModel.getUserByUserName(userName);
-
-            if (user != null){
-
-                // TODO Perform proper authentication - need to decode the password in the database and do the comparison
-
-                if (user.passWord.equals(password)){
-
-                    FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.transition_in, R.anim.transition_out, R.anim.transition_in, R.anim.transition_out)
-                            .setReorderingAllowed(true)
-                            .replace(R.id.coreFragmentContainer, HomeFragment.newInstance(), null)
-                            .commit();
-
-                    return;
-                }
-
-                Log.d("Authentication", "Password Don't Match");
-            }
-            else{
-
-                Log.d("Authentication", "User not found");
-            }
+            handleLogIn(binding);
         });
 
         // Bind to sign up button so that we can transition to sign up fragment which has the sign up form
@@ -88,12 +54,46 @@ public class LogInFragment extends Fragment {
 
             FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.transition_in, R.anim.transition_out, R.anim.transition_in, R.anim.transition_out)
                     .setReorderingAllowed(true)
                     .replace(R.id.coreFragmentContainer, SignUpFragment.newInstance(), null)
                     .commit();
         });
 
         return view;
+    }
+
+    /**
+     * This method will be quite simple and just handle transition if credentials are correct.
+     * I'll just note that I didn't spend much time looking into proper authentication and authorization techniques at this point.
+     * For now, I'll keep it simple.
+     */
+    private void handleLogIn(FragmentLogInBinding binding){
+
+        String userName = binding.logInUserNameInputView.getText().toString();
+        String password = binding.logInPasswordInputView.getText().toString();
+
+        // First check the user name
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        User user = userViewModel.getUserByUserName(userName);
+
+        if (user != null){
+
+            if (user.passWord.equals(password)){
+
+                FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.coreFragmentContainer, HomeFragment.newInstance(), null)
+                        .commit();
+
+                return;
+            }
+
+            binding.logInPasswordInputLayout.setError("Password is Incorrect");
+        }
+        else{
+
+            binding.logInUserNameInputLayout.setError("User not Found");
+        }
     }
 }

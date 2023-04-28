@@ -15,10 +15,12 @@ import com.application.trucksharing.Repositories.UserRepository;
 public class UserViewModel extends AndroidViewModel {
 
     // Reference to user repository
-    // TODO Look into DI
     private UserRepository userRepository;
 
-    // Initialize our user view model
+    /**
+     * Initialize our user view model
+     * @param application
+     */
     public UserViewModel(@NonNull Application application) {
 
         super(application);
@@ -26,13 +28,20 @@ public class UserViewModel extends AndroidViewModel {
         userRepository = new UserRepository(application);
     }
 
-    // Get a user by user name
+    /**
+     * Get a user by user name
+     * @param userName
+     * @return
+     */
     public User getUserByUserName(String userName){
 
         return userRepository.getUserByUserName(userName);
     }
 
-    // Insert operation to create a new user entry for the database
+    /**
+     *  Insert operation to create a new user entry for the database
+     * @param user
+     */
     public void insertNewUser(User user){
 
         userRepository.insertNewUser(user);

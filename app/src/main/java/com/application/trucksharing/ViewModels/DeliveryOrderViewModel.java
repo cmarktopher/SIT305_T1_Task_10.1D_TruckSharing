@@ -21,6 +21,9 @@ public class DeliveryOrderViewModel extends AndroidViewModel {
     // Also,we can use this to hold the data between new orders fragment and order details
     private DeliveryOrder pendingNewDeliveryOrder = new DeliveryOrder();
 
+    // My way of keeping track of the order we have selected when wanting to view the an order
+    private DeliveryOrder currentSelectedOrder;
+
     public DeliveryOrderViewModel(@NonNull Application application) {
 
         super(application);
@@ -29,10 +32,28 @@ public class DeliveryOrderViewModel extends AndroidViewModel {
         allDeliveryOrders = deliveryOrderRepository.getAllDeliveryOrders();
     }
 
-    // Get the pending new delivery order so that it can be populated with data
+    /**
+     * Get the pending new delivery order so that it can be populated with data
+     */
     public DeliveryOrder getPendingNewDeliveryOrder() {
 
         return pendingNewDeliveryOrder;
+    }
+
+    /**
+     * Getter and setter for the current selected order
+     * Just a simple way to get our order details within a new fragment
+     * Open to suggestions if there are better ways to do this without having to re-query the database for a specific entry.
+     * That being said, perhaps re-querying via an id is the best approach?
+     */
+    public DeliveryOrder getCurrentSelectedOrder() {
+
+        return currentSelectedOrder;
+    }
+
+    public void setCurrentSelectedOrder(DeliveryOrder currentSelectedOrder) {
+
+        this.currentSelectedOrder = currentSelectedOrder;
     }
 
     // Get all delivery orders

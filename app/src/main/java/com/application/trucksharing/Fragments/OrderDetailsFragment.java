@@ -1,21 +1,45 @@
 package com.application.trucksharing.Fragments;
 
 import android.os.Bundle;
+
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.application.trucksharing.R;
 
+import com.application.trucksharing.DataModels.DeliveryOrder;
+import com.application.trucksharing.RecyclerViews.GridCardTextDisplayAdapter;
+import com.application.trucksharing.ViewModels.DeliveryOrderViewModel;
+import com.application.trucksharing.databinding.FragmentOrderDetailsBinding;
 
+import java.util.ArrayList;
+
+/**
+ * Fragment for displaying our detailed order/delivery
+ * I've realized that doing a grid based layout is really painful manually and will be more painful if I ever decide to add more descriptions to the grid container
+ * So, I decided to try a different approach using recycler view and adding the good description cards text procedurally.
+ */
 public class OrderDetailsFragment extends Fragment {
+
+    // Our hashmap representing a goods description key and the corresponding text.
+    private ArrayList<String> goodsDescriptions;
 
     public OrderDetailsFragment() {
 
-
+        // Initialize our good descriptions with some placeholder values
+        goodsDescriptions = new ArrayList<String>();
+        goodsDescriptions.add("Goods Type");
+        goodsDescriptions.add("Vehicle Type");
+        goodsDescriptions.add("Weight");
+        goodsDescriptions.add("Width");
+        goodsDescriptions.add( "Length");
+        goodsDescriptions.add("Height");
     }
 
-    // TODO: Rename and change types and number of parameters
     public static OrderDetailsFragment newInstance() {
 
         OrderDetailsFragment fragment = new OrderDetailsFragment();
@@ -35,7 +59,64 @@ public class OrderDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // Create our binding and view
+        FragmentOrderDetailsBinding binding = FragmentOrderDetailsBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
-        return inflater.inflate(R.layout.fragment_order_details, container, false);
+        DeliveryOrderViewModel deliveryOrderViewModel = new ViewModelProvider(requireActivity()).get(DeliveryOrderViewModel.class);
+        DeliveryOrder order = deliveryOrderViewModel.getCurrentSelectedOrder();
+
+        // Handle transition
+        String transitionName = "card_transition_" + order.uid;
+        ViewCompat.setTransitionName(binding.orderDetialsFrameLayout, transitionName);
+
+        // Update the sender name and time
+
+        // Populate our data collection with goods descriptions respective to the order selection
+        PopulateGoodsDescription(order);
+
+        // Populate our order/delivery descriptions
+        PopulateGoodsDescriptionAdapter(binding);
+
+        return view;
+    }
+
+    /**
+     * Populate the good description based on our data
+     */
+    private void PopulateGoodsDescription(DeliveryOrder order){
+
+        // I realized while doing this that this will need some better handling - but since I know which index positions corresponds to what data, I'll leave it as is for now
+        goodsDescriptions.set(0, "Goods Type: " + order.goodType);
+        goodsDescriptions.set(1, "Vehicle Type: " + order.vehicleType);
+        goodsDescriptions.set(2, order.weight);
+        goodsDescriptions.set(3, order.width);
+        goodsDescriptions.set(4, order.length);
+        goodsDescriptions.set(5, order.height);
+    }
+
+    /**
+     * Method to handle populating the recycler view with the item text display cards.
+     */
+    private void PopulateGoodsDescriptionAdapter(FragmentOrderDetailsBinding binding){
+
+        GridCardTextDisplayAdapter newOrdersAdapter = new GridCardTextDisplayAdapter(requireActivity(), goodsDescriptions);
+        binding.goodsDescriptionRecyclerView.setAdapter(newOrdersAdapter);
+
+        // Since by default, we can scroll within this view, I would like to lock this feature.
+        binding.goodsDescriptionRecyclerView.setLayoutManager(new GridLayoutManager(requireActivity(), 2) {
+
+            @Override
+            public boolean canScrollVertically() {
+
+                return false;
+            }
+
+            @Override
+            public boolean canScrollHorizontally() {
+
+                return false;
+            }
+        });
     }
 }

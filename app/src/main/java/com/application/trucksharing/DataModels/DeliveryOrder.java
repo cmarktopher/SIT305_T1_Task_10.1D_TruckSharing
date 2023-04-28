@@ -13,6 +13,9 @@ public class DeliveryOrder {
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
+    @ColumnInfo(name = "sender_name")
+    public String senderName;
+
     @ColumnInfo(name = "receiver_name")
     public String receiverName;
 

@@ -68,7 +68,7 @@ public class NavigationMenuFragment extends Fragment {
                     .remove(this)
                     .setCustomAnimations(R.anim.transition_in, R.anim.transition_out, R.anim.transition_in, R.anim.transition_out)
                     .setReorderingAllowed(true)
-                    .replace(R.id.coreFragmentContainer, NewOrdersFragment.newInstance(), null)
+                    .replace(R.id.coreFragmentContainer, MyOrdersFragment.newInstance(), null)
                     .commit();
         });
 

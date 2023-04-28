@@ -2,7 +2,7 @@
     <string name="app_name">Truck Sharing</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="log_in_welcome_label">WELCOME!</string>
+    <string name="log_in_welcome_label">Truck Sharing</string>
     <string name="sign_up_button_label">SIGN UP</string>
     <string name="login_button_label">LOGIN</string>
     <string name="username_text_view_label">User Name: </string>
