@@ -31,8 +31,9 @@ public class AvailableTruck {
     @ColumnInfo(name = "image_link")
     public String imageLink;
 
-    public AvailableTruck(String truckName, String imageLink) {
+    public AvailableTruck(String truckName, String truckDescription, String imageLink) {
         this.truckName = truckName;
+        this.truckDescription = truckDescription;
         this.imageLink = imageLink;
     }
 }

@@ -1,8 +1,5 @@
 package com.application.trucksharing.RecyclerViews;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +20,7 @@ import com.google.android.material.transition.MaterialContainerTransform;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyOrdersAdapter extends RecyclerView.Adapter<TrucksItemView> {
+public class MyOrdersAdapter extends RecyclerView.Adapter<GeneralItemView> {
 
     private FragmentActivity activity;
     private List<DeliveryOrder> myOrders = new ArrayList<>();
@@ -35,16 +32,16 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<TrucksItemView> {
 
     @NonNull
     @Override
-    public TrucksItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GeneralItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(activity);
-        View view = inflater.inflate(R.layout.truck_item_card, parent, false);
+        View view = inflater.inflate(R.layout.general_item_card, parent, false);
 
-        return new TrucksItemView(view);
+        return new GeneralItemView(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TrucksItemView holder, int position) {
+    public void onBindViewHolder(@NonNull GeneralItemView holder, int position) {
 
         DeliveryOrder newOrder = myOrders.get(position);
 

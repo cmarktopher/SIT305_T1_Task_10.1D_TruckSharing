@@ -67,7 +67,6 @@ public class LogInFragment extends Fragment {
 
         setEnterTransition(enterFadeThrough);
         setExitTransition(exitFadeThrough);
-
     }
 
     /**

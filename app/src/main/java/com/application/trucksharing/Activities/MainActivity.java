@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
 import android.os.Bundle;
+
+import com.application.trucksharing.Fragments.HomeFragment;
 import com.application.trucksharing.Fragments.LogInFragment;
 import com.application.trucksharing.R;
 
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.transition_in, R.anim.transition_out, R.anim.transition_in, R.anim.transition_out)
                 .setReorderingAllowed(true)
-                .replace(R.id.coreFragmentContainer, LogInFragment.newInstance(), null)
+                .replace(R.id.coreFragmentContainer, HomeFragment.newInstance(), null)
                 .commit();
     }
 }

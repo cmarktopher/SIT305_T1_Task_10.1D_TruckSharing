@@ -81,21 +81,25 @@ public abstract class TruckSharingDatabase extends RoomDatabase {
 
                     availableTruckDAO.insertNewAvailableTruck(new AvailableTruck(
                         "Truck_01",
-                        ""
+                        "A large truck. Cheap!",
+                            ""
                     ));
 
                     availableTruckDAO.insertNewAvailableTruck(new AvailableTruck(
                             "Truck_02",
+                            "An even larger truck.",
                             ""
                     ));
 
                     availableTruckDAO.insertNewAvailableTruck(new AvailableTruck(
                             "Truck_03",
+                            "A truck with refrigeration.",
                             ""
                     ));
 
                     availableTruckDAO.insertNewAvailableTruck(new AvailableTruck(
                             "Truck_04",
+                            "A small truck for a small number of items. Guaranteed quick deliver.",
                             ""
                     ));
 
