@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
 /**
  * Database for the entire truck sharing up.
  */
-@Database(entities = {User.class, AvailableTruck.class, DeliveryOrder.class}, version = 3)
+@Database(entities = {User.class, AvailableTruck.class, DeliveryOrder.class}, version = 4)
 public abstract class TruckSharingDatabase extends RoomDatabase {
 
         // Keep track of the single instance of this database

@@ -27,10 +27,14 @@ public class User {
     @ColumnInfo(name = "phone_number")
     public String phoneNumber;
 
-    public User(String fullName, String userName, String passWord, String phoneNumber) {
+    @ColumnInfo(name = "image_uri")
+    public String imageUri;
+
+    public User(String fullName, String userName, String passWord, String phoneNumber, String imageUri) {
         this.fullName = fullName;
         this.userName = userName;
         this.passWord = passWord;
         this.phoneNumber = phoneNumber;
+        this.imageUri = imageUri;
     }
 }

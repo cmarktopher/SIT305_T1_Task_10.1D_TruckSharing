@@ -45,12 +45,11 @@ public class LogInFragment extends Fragment {
         FragmentLogInBinding binding = FragmentLogInBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-
         // Bind to log in button
         binding.loginButton.setOnClickListener(nClickView -> handleLogIn(binding));
 
         // Bind to sign up button so that we can transition to sign up fragment which has the sign up form
-        binding.signUpButton.setOnClickListener(onClickView -> handleSignUp(binding));
+        binding.signUpButton.setOnClickListener(onClickView -> handleSignUp());
 
         return view;
     }
@@ -108,9 +107,8 @@ public class LogInFragment extends Fragment {
 
     /**
      * Handle transition to sign up form when clicked
-     * @param binding
      */
-    private void handleSignUp(FragmentLogInBinding binding){
+    private void handleSignUp(){
 
         FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
         fragmentManager.beginTransaction()

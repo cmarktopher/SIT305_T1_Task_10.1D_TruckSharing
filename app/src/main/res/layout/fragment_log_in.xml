@@ -81,7 +81,8 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/logInUserNameInputView"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                                android:layout_height="match_parent"
+                                tools:ignore="TextContrastCheck" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,7 +101,8 @@
                                 android:id="@+id/logInPasswordInputView"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:inputType="textPassword" />
+                                android:inputType="textPassword"
+                                tools:ignore="TextContrastCheck" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.button.MaterialButton
