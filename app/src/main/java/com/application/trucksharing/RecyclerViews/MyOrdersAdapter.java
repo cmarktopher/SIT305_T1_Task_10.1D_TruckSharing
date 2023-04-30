@@ -1,5 +1,6 @@
 package com.application.trucksharing.RecyclerViews;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,24 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<GeneralItemView> {
 
         DeliveryOrder newOrder = myOrders.get(position);
 
+        String message = "Delivery to be received by " + newOrder.receiverName + " from " + newOrder.senderName + " at " + newOrder.pickupTime;
+
         // Set the UI elements for an order/delivery
-        holder.getTruckItemTitleTextView().setText(newOrder.receiverName);
+        holder.getTruckItemTitleTextView().setText(newOrder.senderName);
+        holder.getItemDescriptionTextView().setText(message);
+
+        // Bind to share button
+        holder.getItemShareButton().setOnClickListener(shareButtonView -> {
+
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+
+            sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+            sendIntent.setType("text/plain");
+
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            activity.startActivity(shareIntent);
+        });
 
         // Set an on click listener to the card itself
         holder.getItemCardView().setOnClickListener(cardView -> {
@@ -55,24 +72,12 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<GeneralItemView> {
             DeliveryOrderViewModel deliveryOrderViewModel = new ViewModelProvider(activity).get(DeliveryOrderViewModel.class);
             deliveryOrderViewModel.setCurrentSelectedOrder(myOrders.get(position));
 
-            // Instantiate the fragment
-            OrderDetailsFragment orderDetailsFragment = OrderDetailsFragment.newInstance();
-
-            // Handle the container transform animation
-            String transitionName = "card_transition_" + newOrder.uid;
-            ViewCompat.setTransitionName(holder.getTruckItemConstraintLayout(), transitionName);
-            MaterialContainerTransform transform = new MaterialContainerTransform();
-            transform.setDuration(600);
-            transform.setFadeMode(MaterialContainerTransform.FADE_MODE_OUT);
-            orderDetailsFragment.setSharedElementEnterTransition(transform);
-
-
+            // Do the transition
             FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .addSharedElement(holder.getTruckItemConstraintLayout(), transitionName)
                     .setReorderingAllowed(true)
                     .addToBackStack(null)
-                    .replace(R.id.coreFragmentContainer, orderDetailsFragment , null)
+                    .replace(R.id.coreFragmentContainer, OrderDetailsFragment.newInstance() , null)
                     .commit();
         });
     }

@@ -1,19 +1,21 @@
 package com.application.trucksharing.Fragments;
 
 import android.os.Bundle;
-
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import androidx.lifecycle.ViewModelProvider;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import com.application.trucksharing.DataModels.DeliveryOrder;
 import com.application.trucksharing.R;
 import com.application.trucksharing.ViewModels.DeliveryOrderViewModel;
 import com.application.trucksharing.databinding.FragmentNewDeliveryPageOneBinding;
+import com.google.android.material.transition.MaterialSharedAxis;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -21,6 +23,7 @@ import java.text.SimpleDateFormat;
  * Just a note, since the form has been split into two fragments based on the task sheet,
  * I'll use the view model associated with new deliveries to persist the data through the different fragments.
  * This will allow me to keep the data from page 1 of the new delivery.
+ * If there is any confusion as to why
  */
 public class NewDeliveryFragmentPageOne extends Fragment {
 
@@ -41,6 +44,7 @@ public class NewDeliveryFragmentPageOne extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        handleFragmentTransitions();
 
     }
 
@@ -60,6 +64,7 @@ public class NewDeliveryFragmentPageOne extends Fragment {
             DeliveryOrder deliveryOrder = deliveryOrderViewModel.getPendingNewDeliveryOrder();
 
             deliveryOrder.receiverName = binding.newDeliveryReceiverNameInput.getText().toString();
+            deliveryOrder.senderName = binding.newDeliverySenderNameInput.getText().toString();
 
             SimpleDateFormat dateFormatObject = new SimpleDateFormat("dd-MM-yyyy");
             deliveryOrder.pickupDate = String.valueOf(dateFormatObject.format(binding.newDeliveryCalenderView.getDate()));
@@ -70,7 +75,6 @@ public class NewDeliveryFragmentPageOne extends Fragment {
             // Do the transition
             FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.transition_in, R.anim.transition_out, R.anim.transition_in, R.anim.transition_out)
                     .setReorderingAllowed(true)
                     .addToBackStack(null)
                     .replace(R.id.coreFragmentContainer, NewDeliveryFragmentPageTwo.newInstance(), null)
@@ -80,4 +84,23 @@ public class NewDeliveryFragmentPageOne extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
+
+    /**
+     * A new material motion pattern known as shared axis where we move the views on the X-axis in a single direction
+     */
+    private void handleFragmentTransitions(){
+
+        MaterialSharedAxis exitAxisTransition = new MaterialSharedAxis(MaterialSharedAxis.X, true);
+        exitAxisTransition.setInterpolator(new FastOutLinearInInterpolator());
+        exitAxisTransition.setDuration(getResources().getInteger(R.integer.shared_axis_exit_duration));
+
+        MaterialSharedAxis reEnterAxisTransition = new MaterialSharedAxis(MaterialSharedAxis.X, false);
+        reEnterAxisTransition.setDuration(getResources().getInteger(R.integer.shared_axis_enter_duration));
+        reEnterAxisTransition.setInterpolator(new FastOutLinearInInterpolator());
+
+        setExitTransition(exitAxisTransition);
+        setReenterTransition(reEnterAxisTransition);
+    }
+
+
 }

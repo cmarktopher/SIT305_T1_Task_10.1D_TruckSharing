@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -18,6 +19,8 @@ import com.application.trucksharing.R;
 import com.application.trucksharing.ViewModels.DeliveryOrderViewModel;
 import com.application.trucksharing.databinding.FragmentNewDeliveryPageOneBinding;
 import com.application.trucksharing.databinding.FragmentNewDeliveryPageTwoBinding;
+import com.google.android.material.transition.MaterialFadeThrough;
+import com.google.android.material.transition.MaterialSharedAxis;
 
 /**
  * Page 2 for the new delivery fragment
@@ -41,7 +44,7 @@ public class NewDeliveryFragmentPageTwo extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        handleFragmentTransitions();
     }
 
     @Override
@@ -104,7 +107,6 @@ public class NewDeliveryFragmentPageTwo extends Fragment {
             // Do the transition
             FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.transition_in, R.anim.transition_out, R.anim.transition_in, R.anim.transition_out)
                     .setReorderingAllowed(true)
                     .replace(R.id.coreFragmentContainer, HomeFragment.newInstance(), null)
                     .commit();
@@ -112,5 +114,19 @@ public class NewDeliveryFragmentPageTwo extends Fragment {
 
 
         return view;
+    }
+
+    private void handleFragmentTransitions(){
+
+        MaterialSharedAxis enterAxisTransition = new MaterialSharedAxis(MaterialSharedAxis.X, true);
+        enterAxisTransition.setDuration(getResources().getInteger(R.integer.shared_axis_enter_duration));
+        enterAxisTransition.setInterpolator(new FastOutLinearInInterpolator());
+
+        MaterialSharedAxis returnAxisTransition = new MaterialSharedAxis(MaterialSharedAxis.X, false);
+        returnAxisTransition.setDuration(getResources().getInteger(R.integer.shared_axis_enter_duration));
+        returnAxisTransition.setInterpolator(new FastOutLinearInInterpolator());
+
+        setEnterTransition(enterAxisTransition);
+        setReturnTransition(returnAxisTransition);
     }
 }

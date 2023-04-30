@@ -1,15 +1,9 @@
 package com.application.trucksharing.Activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
-
-import android.Manifest;
 import android.os.Bundle;
-
 import com.application.trucksharing.Fragments.HomeFragment;
-import com.application.trucksharing.Fragments.LogInFragment;
 import com.application.trucksharing.R;
 
 /**

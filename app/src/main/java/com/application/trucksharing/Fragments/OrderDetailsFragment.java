@@ -63,14 +63,20 @@ public class OrderDetailsFragment extends Fragment {
         FragmentOrderDetailsBinding binding = FragmentOrderDetailsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        // Get order
         DeliveryOrderViewModel deliveryOrderViewModel = new ViewModelProvider(requireActivity()).get(DeliveryOrderViewModel.class);
         DeliveryOrder order = deliveryOrderViewModel.getCurrentSelectedOrder();
 
-        // Handle transition
-        String transitionName = "card_transition_" + order.uid;
-        ViewCompat.setTransitionName(binding.orderDetialsFrameLayout, transitionName);
+        // Update the sender/receiver name and time
+        binding.fromSenderTextView.setText("From sender: "+ order.senderName);
+        binding.pickUpTimeTextView.setText("Pick up time: " + order.pickupTime);
+        binding.toReceiverTextView.setText("To receiver " + order.receiverName);
 
-        // Update the sender name and time
+        // Just a note, a drop off time in the current context of the task is a bit odd
+        // Not enough information has been provided about this
+        // So for now, I'll assume drop off time is a live time that is updated on the truck driver's version of the app
+        // We can achieve this by using live data most likely but since we don't have the full implementation of this app, I'll leave this as "to be determined", meaning that the truck driver needs to update this drop off time
+        binding.dropOffTimeTextView.setText("Drop off time: to be determined");
 
         // Populate our data collection with goods descriptions respective to the order selection
         PopulateGoodsDescription(order);

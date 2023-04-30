@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.NewDeliveryFragmentPageTwo">
+    tools:context=".Fragments.NewDeliveryFragmentPageTwo"
+    android:transitionGroup="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -45,14 +46,13 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginEnd="50dp"
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="Other"
                         android:textAlignment="center"
-                        android:textColorHint="@color/hint_color"
-                        app:boxBackgroundColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/goodTypesRadioGroup"
@@ -135,14 +135,14 @@
                     android:layout_marginTop="10dp">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="180dp"
-                        android:layout_height="48dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:hint="Weight"
-                        android:textColorHint="@color/hint_color"
-                        app:boxBackgroundColor="@color/white"
                         app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
                         app:layout_constraintEnd_toStartOf="@+id/guideline9"
                         app:layout_constraintStart_toStartOf="parent"
@@ -158,11 +158,14 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="180dp"
-                        android:layout_height="48dp"
+                        android:id="@+id/textInputLayout4"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
                         android:hint="Width"
-                        android:textColorHint="@color/hint_color"
-                        app:boxBackgroundColor="@color/white"
                         app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline9"
@@ -179,11 +182,12 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayout3"
-                        android:layout_width="180dp"
-                        android:layout_height="48dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
                         android:hint="Height"
-                        android:textColorHint="@color/hint_color"
-                        app:boxBackgroundColor="@color/white"
                         app:layout_constraintBottom_toTopOf="@+id/guideline8"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline9"
@@ -200,12 +204,12 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayout2"
-                        android:layout_width="180dp"
-                        android:layout_height="48dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:hint="Length"
-                        android:textColorHint="@color/hint_color"
-                        app:boxBackgroundColor="@color/white"
                         app:layout_constraintBottom_toTopOf="@+id/guideline8"
                         app:layout_constraintEnd_toStartOf="@+id/guideline9"
                         app:layout_constraintStart_toStartOf="parent"
@@ -259,14 +263,13 @@
                     android:layout_marginTop="10dp">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginEnd="50dp"
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="Other"
                         android:textAlignment="center"
-                        android:textColorHint="@color/hint_color"
-                        app:boxBackgroundColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/vehicleTypeRadioGroup"
@@ -332,13 +335,14 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.ElevatedButton"
                     android:id="@+id/createOrderButton"
                     android:layout_width="250dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     android:text="Create Order"
-                    android:textSize="20sp"
+                    android:textSize="40sp"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText,TextSizeCheck">
 

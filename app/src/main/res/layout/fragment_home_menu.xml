@@ -14,39 +14,47 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView2"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
+            android:layout_width="160dp"
+            android:layout_height="220dp"
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            app:cardBackgroundColor="?attr/colorSurface"
-            app:cardElevation="8dp"
+            app:cardElevation="1dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/homeMenuHomeButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.FloatingActionButton.Secondary"
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
+                    android:textSize="15dp"
                     android:text="Home" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/homeMenuAccountButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.FloatingActionButton.Secondary"
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
                     android:layout_marginBottom="10dp"
+                    android:textSize="15dp"
                     android:text="Account" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/homeMenuOrdersButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.FloatingActionButton.Secondary"
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="15dp"
                     android:text="My Orders" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

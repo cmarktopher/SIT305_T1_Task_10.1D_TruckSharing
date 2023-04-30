@@ -2,6 +2,7 @@ package com.application.trucksharing.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,9 +10,12 @@ import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 
 import com.application.trucksharing.R;
 import com.application.trucksharing.databinding.FragmentHomeMenuBinding;
+import com.google.android.material.transition.MaterialFade;
+import com.google.android.material.transition.MaterialFadeThrough;
 
 /**
  * This fragment is for the navigation home menu that will overlay over the home and my orders fragment.
@@ -34,11 +38,11 @@ public class NavigationMenuFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        handleFragmentTransitions();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Create our binding and view
@@ -82,5 +86,18 @@ public class NavigationMenuFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void handleFragmentTransitions(){
+
+        MaterialFade enterFade = new MaterialFade();
+        enterFade.setDuration(getResources().getInteger(R.integer.fade_enter_duration));
+
+        MaterialFade exitFade = new MaterialFade();
+        exitFade.setDuration(getResources().getInteger(R.integer.fade_exit_duration));
+        exitFade.setInterpolator(new LinearInterpolator());
+
+        setEnterTransition(enterFade);
+        setExitTransition(exitFade);
     }
 }

@@ -2,14 +2,16 @@ package com.application.trucksharing.RecyclerViews;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.application.trucksharing.DataModels.AvailableTruck;
 import com.application.trucksharing.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class AvailableTrucksAdapter extends RecyclerView.Adapter<GeneralItemView> {
 
-    private Context context;
+    private final Context context;
     private List<AvailableTruck> availableTrucks = new ArrayList<>();
 
     public AvailableTrucksAdapter(Context context, List<AvailableTruck> availableTrucks) {
