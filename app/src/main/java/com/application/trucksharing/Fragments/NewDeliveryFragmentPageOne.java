@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -64,13 +66,23 @@ public class NewDeliveryFragmentPageOne extends Fragment {
             DeliveryOrder deliveryOrder = deliveryOrderViewModel.getPendingNewDeliveryOrder();
 
             deliveryOrder.receiverName = binding.newDeliveryReceiverNameInput.getText().toString();
-            deliveryOrder.senderName = binding.newDeliverySenderNameInput.getText().toString();
+            deliveryOrder.senderName = binding.newDeliverySenderNameInput.getText().toString(); // Just something extra I added since it seems we need one based on the details page of an order
 
             SimpleDateFormat dateFormatObject = new SimpleDateFormat("dd-MM-yyyy");
             deliveryOrder.pickupDate = String.valueOf(dateFormatObject.format(binding.newDeliveryCalenderView.getDate()));
 
             deliveryOrder.pickupTime = binding.newDeliveryTimeInput.getText().toString();
             deliveryOrder.pickupLocation = binding.newDeliveryLocationInput.getText().toString();
+
+            // Added this in after everything else was done - a bit lazy approach since I didn't want to put error messages for each input like the sign in and sign up
+            if (deliveryOrder.receiverName.isEmpty() || deliveryOrder.senderName.isEmpty()|| deliveryOrder.pickupDate.isEmpty() || deliveryOrder.pickupTime.isEmpty() || deliveryOrder.pickupLocation.isEmpty() ){
+
+                Toast toast = new Toast(requireContext());
+                toast.setText("Please fill in all fields");
+                toast.show();
+
+                return;
+            }
 
             // Do the transition
             FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();

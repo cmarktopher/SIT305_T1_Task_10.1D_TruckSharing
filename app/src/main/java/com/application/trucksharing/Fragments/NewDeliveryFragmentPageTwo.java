@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.application.trucksharing.DataModels.DeliveryOrder;
 import com.application.trucksharing.R;
@@ -100,6 +101,16 @@ public class NewDeliveryFragmentPageTwo extends Fragment {
 
                     deliveryOrder.vehicleType = vehicleTypeRadioButton.getText().toString();
                 }
+            }
+
+            // More quick and lazy validation
+            if (deliveryOrder.goodType.isEmpty() || deliveryOrder.weight.isEmpty()|| deliveryOrder.width.isEmpty() || deliveryOrder.length.isEmpty() || deliveryOrder.height.isEmpty() ||  deliveryOrder.vehicleType.isEmpty()){
+
+                Toast toast = new Toast(requireContext());
+                toast.setText("Please fill in all fields");
+                toast.show();
+
+                return;
             }
 
             deliveryOrderViewModel.insertNewAvailableTruck();

@@ -79,7 +79,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Enter receiver name"
-                            android:textColorHint="@color/black"
                             tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,7 +128,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Enter sender name"
-                            android:textColorHint="@color/black"
                             tools:ignore="DuplicateSpeakableTextCheck,VisualLintTextFieldSize" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -208,7 +206,6 @@
                             android:layout_height="wrap_content"
                             android:hint="Enter a pickup time"
                             android:inputType="time"
-                            android:textColorHint="@color/black"
                             tools:ignore="VisualLintTextFieldSize" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -256,7 +253,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Enter a pickup location"
-                            android:textColorHint="@color/black"
                             tools:ignore="VisualLintTextFieldSize" />
                     </com.google.android.material.textfield.TextInputLayout>
 
