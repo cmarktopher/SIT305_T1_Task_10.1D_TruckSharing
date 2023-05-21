@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,7 +15,6 @@ import com.application.trucksharing.DataModels.DeliveryOrder;
 import com.application.trucksharing.Fragments.OrderDetailsFragment;
 import com.application.trucksharing.R;
 import com.application.trucksharing.ViewModels.DeliveryOrderViewModel;
-import com.google.android.material.transition.MaterialContainerTransform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +34,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<GeneralItemView> {
     public GeneralItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(activity);
-        View view = inflater.inflate(R.layout.general_item_card, parent, false);
+        View view = inflater.inflate(R.layout.view_general_item_card, parent, false);
 
         return new GeneralItemView(view);
     }
@@ -77,7 +75,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<GeneralItemView> {
             fragmentManager.beginTransaction()
                     .setReorderingAllowed(true)
                     .addToBackStack(null)
-                    .replace(R.id.coreFragmentContainer, OrderDetailsFragment.newInstance() , null)
+                    .replace(R.id.coreFragmentContainerView, OrderDetailsFragment.newInstance() , null)
                     .commit();
         });
     }

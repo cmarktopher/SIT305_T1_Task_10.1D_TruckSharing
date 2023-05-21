@@ -4,29 +4,31 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-import com.application.trucksharing.DataModels.User;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+
+import com.application.trucksharing.Authentication.IAuthenticationHandler;
+import com.application.trucksharing.Authentication.RoomAuthenticationHandler;
 import com.application.trucksharing.R;
-import com.application.trucksharing.ViewModels.UserViewModel;
 import com.application.trucksharing.databinding.FragmentLogInBinding;
 import com.google.android.material.transition.MaterialFadeThrough;
 
 /**
- * Fragment for the log in page - this will also be the entry view the user sees when opening the app
+ * Fragment for the log in page.
  */
 public class LogInFragment extends Fragment {
 
+    // UI Binding
+    FragmentLogInBinding binding;
+
+    // Implementation of our authentication handler
+    IAuthenticationHandler authenticationHandler = new RoomAuthenticationHandler();
+
     public LogInFragment() {
-        // Required empty public constructor
-    }
 
-    public static LogInFragment newInstance() {
-
-        return new LogInFragment();
     }
 
     @Override
@@ -42,14 +44,14 @@ public class LogInFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Create our binding and view
-        FragmentLogInBinding binding = FragmentLogInBinding.inflate(inflater, container, false);
+        binding = FragmentLogInBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         // Bind to log in button
-        binding.loginButton.setOnClickListener(nClickView -> handleLogIn(binding));
+        binding.loginButton.setOnClickListener(this::onLogInButtonPressed);
 
-        // Bind to sign up button so that we can transition to sign up fragment which has the sign up form
-        binding.signUpButton.setOnClickListener(onClickView -> handleSignUp());
+        // Bind to sign up button
+        binding.signUpButton.setOnClickListener(this::onSignUpButtonPressed);
 
         return view;
     }
@@ -69,51 +71,40 @@ public class LogInFragment extends Fragment {
         setExitTransition(exitFadeThrough);
     }
 
+
     /**
-     * This method will be quite simple and just handle transition if credentials are correct.
-     * I'll just note that I didn't spend much time looking into proper authentication and authorization techniques at this point.
-     * For now, I'll keep it simple.
+     * Response to log in button being pressed.
+     * @param view View pressed.
      */
-    private void handleLogIn(FragmentLogInBinding binding){
+    private void onLogInButtonPressed(View view){
 
-        String userName = binding.logInUserNameInputView.getText().toString();
-        String password = binding.logInPasswordInputView.getText().toString();
+        // Get our username and password
+        String userName = binding.logInFragmentUserNameInputView.getText().toString();
+        String password = binding.logInFragmentPasswordInputView.getText().toString();
 
-        // First check the user name
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        User user = userViewModel.getUserByUserName(userName);
+        // Pass in our username and password to the authentication handler.
+        if (authenticationHandler.authenticateUser(getActivity(), userName, password)){
 
-        if (user != null){
+            NavDirections action = LogInFragmentDirections.actionLogInFragmentToHomeFragment();
+            Navigation.findNavController(view).navigate(action);
 
-            if (user.passWord.equals(password)){
-
-                FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .setReorderingAllowed(true)
-                        .replace(R.id.coreFragmentContainer, HomeFragment.newInstance(), null)
-                        .commit();
-
-                return;
-            }
-
-            binding.logInPasswordInputLayout.setError("Password is Incorrect");
         }
         else{
 
-            binding.logInUserNameInputLayout.setError("User not Found");
+            // If we reach here, something is wrong with our credentials.
+            // For perhaps more security, we will just say that the username or password is incorrect for both fields.
+            binding.logInFragmentUserNameInputLayout.setError("Username or password is incorrect");
+            binding.logInFragmentPasswordInputLayout.setError("Username or password is incorrect");
         }
     }
 
     /**
-     * Handle transition to sign up form when clicked
+     * Response to sign up button being pressed.
+     * @param view View pressed.
      */
-    private void handleSignUp(){
+    private void onSignUpButtonPressed(View view){
 
-        FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .addToBackStack(null)
-                .replace(R.id.coreFragmentContainer, SignUpFragment.newInstance(), null)
-                .commit();
+        NavDirections action = LogInFragmentDirections.actionLogInFragmentToSignUpFragment();
+        Navigation.findNavController(view).navigate(action);
     }
 }

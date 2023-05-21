@@ -119,7 +119,7 @@ public class NewDeliveryFragmentPageTwo extends Fragment {
             FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .setReorderingAllowed(true)
-                    .replace(R.id.coreFragmentContainer, HomeFragment.newInstance(), null)
+                    .replace(R.id.coreFragmentContainerView, HomeFragment.newInstance(), null)
                     .commit();
         });
 

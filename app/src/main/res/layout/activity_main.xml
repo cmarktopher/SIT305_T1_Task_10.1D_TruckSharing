@@ -6,14 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Activities.MainActivity">
 
+
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/coreFragmentContainer"
-        android:name="com.application.trucksharing.Fragments.LogInFragment"
+        android:id="@+id/coreFragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_weight="1"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_log_in" />
+        app:navGraph="@navigation/navigation_graph" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

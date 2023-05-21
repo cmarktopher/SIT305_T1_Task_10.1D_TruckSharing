@@ -1,23 +1,21 @@
 package com.application.trucksharing.Fragments;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.application.trucksharing.DataModels.AvailableTruck;
 import com.application.trucksharing.R;
 import com.application.trucksharing.RecyclerViews.AvailableTrucksAdapter;
 import com.application.trucksharing.ViewModels.AvailableTruckViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.application.trucksharing.databinding.FragmentHomeBinding;
 import com.google.android.material.transition.MaterialFadeThrough;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +23,9 @@ import java.util.List;
  * Home fragment that will show all available trucks in the database.
  */
 public class HomeFragment extends Fragment {
+
+    // UI element binding
+    FragmentHomeBinding binding;
 
     private List<AvailableTruck> availableTrucks = new ArrayList<>();
 
@@ -45,6 +46,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         handleFragmentTransitions();
     }
 
@@ -52,10 +54,12 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        // Create our binding and view
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
         // Get UI Elements
-        RecyclerView availableTrucksRecyclerView = view.findViewById(R.id.ordersRecyclerView);
+        RecyclerView availableTrucksRecyclerView = binding.homeFragmentOrdersRecyclerView;
 
         // Create and bind recycler view adapter to the recycler view
         AvailableTrucksAdapter availableTrucksAdapter = new AvailableTrucksAdapter(requireActivity(), availableTrucks);
@@ -72,32 +76,37 @@ public class HomeFragment extends Fragment {
         });
 
         // Bind to add new delivery button
-        FloatingActionButton newDeliveryButton = view.findViewById(R.id.newDeliveryButton);
-        newDeliveryButton.setOnClickListener(newDeliveryButtonView -> {
-
-            FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setReorderingAllowed(true)
-                    .addToBackStack(null)
-                    .replace(R.id.coreFragmentContainer, NewDeliveryFragmentPageOne.newInstance(), null)
-                    .commit();
-        });
+        binding.homeFragmentNewDeliveryButton.setOnClickListener(this::onNewDeliveryButtonPressed);
 
         // Bind to show menu button
-        ImageButton showMenuButton = view.findViewById(R.id.showHomeMenuButton);
-        showMenuButton.setOnClickListener(showHomeMenuView -> {
-
-            FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setReorderingAllowed(true)
-                    .addToBackStack(null)
-                    .add(R.id.coreFragmentContainer, NavigationMenuFragment.newInstance(), null)
-                    .commit();
-        });
+        binding.homeFragmentShowHomeMenuButton.setOnClickListener(this::onShowMenuButtonPressed);
 
         return view;
     }
 
+    /**
+     * Response to when new delivery button pressed.
+     * @param view View pressed.
+     */
+    private void onNewDeliveryButtonPressed(View view){
+
+        NavDirections action = HomeFragmentDirections.actionHomeFragmentToNewDeliveryFragmentPageOne();
+        Navigation.findNavController(view).navigate(action);
+    }
+
+    /**
+     * Response to when menu button pressed.
+     * @param view View pressed.
+     */
+    private void onShowMenuButtonPressed(View view){
+
+        NavDirections action = HomeFragmentDirections.actionHomeFragmentToNavigationMenuFragment();
+        Navigation.findNavController(view).navigate(action);
+    }
+
+    /**
+     * Handle transition settings.
+     */
     private void handleFragmentTransitions(){
 
         MaterialFadeThrough enterFadeThrough = new MaterialFadeThrough();

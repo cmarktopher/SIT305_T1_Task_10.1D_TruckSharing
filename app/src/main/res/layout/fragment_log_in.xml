@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView"
+            android:id="@+id/logInFragmentTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -19,7 +19,7 @@
             android:textAlignment="center"
             android:textSize="50sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+            app:layout_constraintBottom_toTopOf="@+id/logInFragmentAuthScrollView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,14 +27,14 @@
             tools:ignore="HardcodedText" />
 
         <ScrollView
-            android:id="@+id/scrollView3"
+            android:id="@+id/logInFragmentAuthScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialTextView">
+            app:layout_constraintTop_toBottomOf="@+id/logInFragmentTitleTextView">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,7 +44,6 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardView"
                     style="@style/Widget.Material3.CardView.Elevated"
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
@@ -69,8 +68,8 @@
                             tools:ignore="HardcodedText" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/logInUserNameInputLayout"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                            android:id="@+id/logInFragmentUserNameInputLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
@@ -79,7 +78,7 @@
                             tools:ignore="HardcodedText">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/logInUserNameInputView"
+                                android:id="@+id/logInFragmentUserNameInputView"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 tools:ignore="TextContrastCheck" />
@@ -87,8 +86,8 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/logInPasswordInputLayout"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                            android:id="@+id/logInFragmentPasswordInputLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
@@ -98,7 +97,7 @@
                             tools:ignore="HardcodedText">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/logInPasswordInputView"
+                                android:id="@+id/logInFragmentPasswordInputView"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:inputType="textPassword"

@@ -38,7 +38,7 @@ public class AvailableTrucksAdapter extends RecyclerView.Adapter<GeneralItemView
     public GeneralItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.general_item_card, parent, false);
+        View view = inflater.inflate(R.layout.view_general_item_card, parent, false);
 
         return new GeneralItemView(view);
     }

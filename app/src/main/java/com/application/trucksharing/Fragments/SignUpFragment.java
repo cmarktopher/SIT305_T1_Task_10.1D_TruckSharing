@@ -10,15 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.application.trucksharing.DataModels.User;
 import com.application.trucksharing.R;
@@ -53,15 +50,13 @@ public class SignUpFragment extends Fragment {
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
 
     // Cache to the image URI to be stored in the database
-    Uri selectedImageUri;
+    private Uri selectedImageUri;
+
+    // Keep track of if all inputs (including image) have been filled and password matches.
+    Boolean canCreateAccount = false;
 
     public SignUpFragment() {
 
-    }
-
-    public static SignUpFragment newInstance() {
-
-        return new SignUpFragment();
     }
 
     @Override
@@ -69,9 +64,9 @@ public class SignUpFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        createOpenGalleryIntent();
-
         handleFragmentTransitions();
+
+        createOpenGalleryIntent();
     }
 
     @Override
@@ -83,10 +78,10 @@ public class SignUpFragment extends Fragment {
         View view = binding.getRoot();
 
         // Bind to adding image
-        binding.signUpImageCard.setOnClickListener(view1 -> handleOpenGallery());
+        binding.signUpFragmentImageCard.setOnClickListener(this::handleImageViewPressed);
 
         // Bind to create account button
-        binding.createAccountButton.setOnClickListener(view1 -> handleCreateAccount(binding));
+        binding.signUpFragmentCreateAccountButton.setOnClickListener(this::handleCreateAccount);
 
         // Inflate the layout for this fragment
         return view;
@@ -117,7 +112,7 @@ public class SignUpFragment extends Fragment {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null){
 
                         selectedImageUri = result.getData().getData();
-                        binding.signUpImageView.setImageURI(selectedImageUri);
+                        binding.signUpFragmentImageView.setImageURI(selectedImageUri);
                     }
                 }
         );
@@ -139,20 +134,24 @@ public class SignUpFragment extends Fragment {
     }
 
     /**
-     * Handles adding of an image
+     * Response on image view pressed.
+     * This will handle adding of an image.
      * As mentioned previously, we don't need to ask permissions anymore to open the gallery - the storage access framework is more secure.
      * As such, simply launch the activity (to my understanding, this will just be the system's picker)
+     * @param view View pressed.
      */
-    private void handleOpenGallery(){
+    private void handleImageViewPressed(View view){
 
         galleryActivityResultLauncher.launch(galleryIntent);
     }
 
 
     /**
+     * Response to create account button being pressed.
      * Handles creation of a new account.
+     * @param view View pressed.
      */
-    private void handleCreateAccount(FragmentSignUpBinding binding){
+    private void handleCreateAccount(View view){
 
         String fullName;
         String userName;
@@ -160,40 +159,34 @@ public class SignUpFragment extends Fragment {
         String confirmPassWord;
         String number;
 
-        // Trying something different here
-        // We will check if the user has provided the respective input, if not, an exception will be throw and we return out of this method and not add the new user.
-        try {
-
-            fullName = validateInputString(binding.signUpFullNameInputViewLayout, binding.signUpFullNameInputView, "A name must be provided");
-            userName = validateInputString(binding.signUpUserNameInputLayout, binding.signUpUserNameInputView, "A username must be provided");
-            passWord = validateInputString(binding.signUpPasswordInputLayout, binding.signUpPasswordInputView, "A password must be provided");
-            confirmPassWord = validateInputString(binding.signUpConfirmPasswordInputLayout, binding.signUpConfirmPasswordInputView, "Please re-enter password for validation");
-            number = validateInputString(binding.signUpPhoneInputLayout, binding.signUpPhoneInputView, "A phone number must be provided");
-
-            // Can be handled better but if we reach here with no issues, we just need to ensure number has been cleared of any errors that may have been set.
-            // Also, if passwords do not match, if that has been fixed by the user, and all entries are present, all errors will be gone by this point.
-            binding.signUpPhoneInputLayout.setError(null);
-
-        } catch (Exception e) {
-
-            return;
-        }
+        // Change this from using an exception to a boolean - this way, all fields will show an error if empty
+        fullName = validateInputString(binding.signUpFragmentFullNameInputViewLayout, binding.signUpFragmentFullNameInputView, "A name must be provided");
+        userName = validateInputString(binding.signUpFragmentUserNameInputLayout, binding.signUpFragmentUserNameInputView, "A username must be provided");
+        passWord = validateInputString(binding.signUpFragmentPasswordInputLayout, binding.signUpFragmentPasswordInputView, "A password must be provided");
+        confirmPassWord = validateInputString(binding.signUpFragmentConfirmPasswordInputLayout, binding.signUpFragmentConfirmPasswordInputView, "Please re-enter password for validation");
+        number = validateInputString(binding.signUpFragmentPhoneInputLayout, binding.signUpFragmentPhoneInputView, "A phone number must be provided");
 
         // Need some extra logic to check if password matches
         if (!passWord.matches(confirmPassWord)) {
 
-            binding.signUpPasswordInputLayout.setError("Passwords do not match");
-            binding.signUpConfirmPasswordInputLayout.setError("Passwords do not match");
-            return;
+            canCreateAccount = false;
+            binding.signUpFragmentPasswordInputLayout.setError("Passwords do not match");
+            binding.signUpFragmentConfirmPasswordInputLayout.setError("Passwords do not match");
         }
 
         // Return if image is not set
         // For simplicity, I'll do a toast to tell the user to set an image
         if (selectedImageUri == null){
 
+            canCreateAccount = false;
             Toast noImageToast = new Toast(getContext());
             noImageToast.setText("Please set a profile image");
             noImageToast.show();
+        }
+
+        // New logic here where we now check if we have everything required to create an account
+        if (!canCreateAccount){
+
             return;
         }
 
@@ -204,18 +197,17 @@ public class SignUpFragment extends Fragment {
         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         userViewModel.insertNewUser(newUser);
 
-        // Go back to home screen when done
-        FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .replace(R.id.coreFragmentContainer, LogInFragment.newInstance(), null)
-                .commit();
+        // Return to sign up page
+        Navigation.findNavController(getView()).popBackStack();
     }
 
     /**
-     * Just a quick way to ensure we have inputs present in the fields.
+     * This will check if we have actual input in the fields.
+     * Also, I have introduced a new variable which helps keep track of whether we can create an account or now.
      */
     private String validateInputString(TextInputLayout textInputLayout, TextInputEditText textInputEditText, String errorMessage){
+
+        canCreateAccount = true;
 
         // Clear the error to ensure subsequent entries are taken into account.
         textInputLayout.setError(null);
@@ -223,14 +215,13 @@ public class SignUpFragment extends Fragment {
         // Get the text
         String textInput = textInputEditText.getText().toString();
 
-        // If empty, set the error and throw an exception
+        // If empty, set the error and set can create account to false
         if (textInput.isEmpty()){
 
+            canCreateAccount = false;
             textInputLayout.setError(errorMessage);
-            throw new RuntimeException();
         }
 
-        // If we reach here, we have an input to use
         return textInput;
     }
 }

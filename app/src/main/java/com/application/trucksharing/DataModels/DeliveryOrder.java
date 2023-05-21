@@ -28,6 +28,21 @@ public class DeliveryOrder {
     @ColumnInfo(name = "pickup_location")
     public String pickupLocation;
 
+    @ColumnInfo(name = "pickup_latitude")
+    public double pickupLatitude;
+
+    @ColumnInfo(name = "pickup_longitude")
+    public double pickupLongitude;
+
+    @ColumnInfo(name = "drop_off_location")
+    public String dropOffLocation;
+
+    @ColumnInfo(name = "drop_off_latitude")
+    public double dropOffLatitude;
+
+    @ColumnInfo(name = "drop_off_longitude")
+    public double dropOffLongitude;
+
     @ColumnInfo(name = "good_type")
     public String goodType;
 
@@ -46,14 +61,24 @@ public class DeliveryOrder {
     @ColumnInfo(name = "vehicle_type")
     public String vehicleType;
 
-    public DeliveryOrder(){};
+    public DeliveryOrder(){}
 
-    public DeliveryOrder(int uid, String receiverName, String pickupDate, String pickupTime, String pickupLocation, String goodType, String weight, String width, String length, String height, String vehicleType) {
+    public DeliveryOrder(int uid, String senderName, String receiverName,
+                         String pickupDate, String pickupTime,
+                         String pickupLocation, double pickupLatitude, double pickupLongitude,
+                         String dropOffLocation, double dropOffLatitude, double dropOffLongitude,
+                         String goodType, String weight, String width, String length, String height, String vehicleType) {
         this.uid = uid;
+        this.senderName = senderName;
         this.receiverName = receiverName;
         this.pickupDate = pickupDate;
         this.pickupTime = pickupTime;
         this.pickupLocation = pickupLocation;
+        this.pickupLatitude = pickupLatitude;
+        this.pickupLongitude = pickupLongitude;
+        this.dropOffLocation = dropOffLocation;
+        this.dropOffLatitude = dropOffLatitude;
+        this.dropOffLongitude = dropOffLongitude;
         this.goodType = goodType;
         this.weight = weight;
         this.width = width;

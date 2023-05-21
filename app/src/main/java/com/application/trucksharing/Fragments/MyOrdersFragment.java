@@ -55,7 +55,7 @@ public class MyOrdersFragment extends Fragment {
             fragmentManager.beginTransaction()
                     .setReorderingAllowed(true)
                     .addToBackStack(null)
-                    .add(R.id.coreFragmentContainer, NavigationMenuFragment.newInstance(), null)
+                    .add(R.id.coreFragmentContainerView, NavigationMenuFragment.newInstance(), null)
                     .commit();
         });
 

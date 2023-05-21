@@ -35,13 +35,6 @@ public class NewDeliveryFragmentPageOne extends Fragment {
         // Required empty public constructor
     }
 
-    public static NewDeliveryFragmentPageOne newInstance() {
-        NewDeliveryFragmentPageOne fragment = new NewDeliveryFragmentPageOne();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -72,7 +65,7 @@ public class NewDeliveryFragmentPageOne extends Fragment {
             deliveryOrder.pickupDate = String.valueOf(dateFormatObject.format(binding.newDeliveryCalenderView.getDate()));
 
             deliveryOrder.pickupTime = binding.newDeliveryTimeInput.getText().toString();
-            deliveryOrder.pickupLocation = binding.newDeliveryLocationInput.getText().toString();
+            deliveryOrder.pickupLocation = binding.newDeliveryPickUpLocationInput.getText().toString();
 
             // Added this in after everything else was done - a bit lazy approach since I didn't want to put error messages for each input like the sign in and sign up
             if (deliveryOrder.receiverName.isEmpty() || deliveryOrder.senderName.isEmpty()|| deliveryOrder.pickupDate.isEmpty() || deliveryOrder.pickupTime.isEmpty() || deliveryOrder.pickupLocation.isEmpty() ){
@@ -89,7 +82,7 @@ public class NewDeliveryFragmentPageOne extends Fragment {
             fragmentManager.beginTransaction()
                     .setReorderingAllowed(true)
                     .addToBackStack(null)
-                    .replace(R.id.coreFragmentContainer, NewDeliveryFragmentPageTwo.newInstance(), null)
+                    .replace(R.id.coreFragmentContainerView, NewDeliveryFragmentPageTwo.newInstance(), null)
                     .commit();
         });
 

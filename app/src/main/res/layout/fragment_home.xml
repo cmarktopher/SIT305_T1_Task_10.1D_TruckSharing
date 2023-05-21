@@ -6,62 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.HomeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/homeFragmentLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
+        <ImageButton
+            android:id="@+id/homeFragmentShowHomeMenuButton"
+            android:layout_width="62dp"
+            android:layout_height="83dp"
+            android:layout_marginStart="4dp"
+            android:background="#00D61313"
+            android:src="@drawable/baseline_more_vert_24"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,VisualLintBounds" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeFragmentOrdersRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="623dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginBottom="10dp">
 
-            <ImageButton
-                android:id="@+id/showHomeMenuButton"
-                android:layout_width="62dp"
-                android:layout_height="83dp"
-                android:layout_marginStart="4dp"
-                android:background="#00D61313"
-                android:src="@drawable/baseline_more_vert_24"
-                tools:ignore="ContentDescription,SpeakableTextPresentCheck,VisualLintBounds" />
+        </androidx.recyclerview.widget.RecyclerView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ordersRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="623dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp">
+    </LinearLayout>
 
-            </androidx.recyclerview.widget.RecyclerView>
-
-        </LinearLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/newDeliveryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="320dp"
-            android:layout_marginTop="650dp"
-            android:clickable="true"
-            android:contentDescription="@string/add_new_delivery_button"
-            android:focusable="true"
-            android:focusableInTouchMode="false"
-            android:src="@drawable/baseline_add_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/homeFragmentNewDeliveryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:contentDescription="@string/add_new_delivery_button"
+        android:focusable="true"
+        android:focusableInTouchMode="false"
+        android:src="@drawable/baseline_add_24" />
 
 </FrameLayout>
