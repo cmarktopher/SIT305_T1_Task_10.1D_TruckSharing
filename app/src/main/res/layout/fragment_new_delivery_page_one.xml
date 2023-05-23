@@ -16,8 +16,10 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -26,8 +28,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
                 android:orientation="vertical"
+                android:paddingBottom="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -105,38 +107,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="5dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/newDeliveryPickUpLocationInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter a pick up location"
-                        tools:ignore="HardcodedText,VisualLintTextFieldSize,TextContrastCheck" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="5dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/newDeliveryDropOffLocationInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter a drop off location"
-                        tools:ignore="HardcodedText,VisualLintTextFieldSize,TextContrastCheck" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -152,11 +122,41 @@
                         tools:ignore="HardcodedText,VisualLintTextFieldSize,TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Pick up location"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/newDeliveryPickUpLocationInput"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout="@layout/place_autocomplete_fragment" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Drop off location"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/newDeliveryDropOffLocationInput"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout="@layout/place_autocomplete_fragment" />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/newDeliveryNextButton"
                     style="@style/Widget.Material3.Button.ElevatedButton"
                     android:layout_width="250dp"
-                    android:layout_height="80dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30dp"
                     android:text="@string/new_delivery_next_button"

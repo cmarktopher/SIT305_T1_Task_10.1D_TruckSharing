@@ -23,11 +23,11 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_navigationMenuFragment"
-            app:destination="@id/navigationMenuFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_newDeliveryFragmentPageOne"
             app:destination="@id/newDeliveryFragmentPageOne" />
+        <action
+            android:id="@+id/action_homeFragment_to_myOrdersFragment"
+            app:destination="@id/myOrdersFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -42,15 +42,6 @@
         <action
             android:id="@+id/action_newDeliveryFragmentPageOne_to_newDeliveryFragmentPageTwo"
             app:destination="@id/newDeliveryFragmentPageTwo" />
-    </fragment>
-    <fragment
-        android:id="@+id/navigationMenuFragment"
-        android:name="com.application.trucksharing.Fragments.NavigationMenuFragment"
-        android:label="fragment_home_menu"
-        tools:layout="@layout/fragment_home_menu" >
-        <action
-            android:id="@+id/action_navigationMenuFragment_to_myOrdersFragment"
-            app:destination="@id/myOrdersFragment" />
     </fragment>
     <fragment
         android:id="@+id/newDeliveryFragmentPageTwo"
@@ -70,5 +61,14 @@
         android:id="@+id/orderDetailsFragment"
         android:name="com.application.trucksharing.Fragments.OrderDetailsFragment"
         android:label="fragment_order_details"
-        tools:layout="@layout/fragment_order_details" />
+        tools:layout="@layout/fragment_order_details" >
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_estimateFragment"
+            app:destination="@id/estimateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/estimateFragment"
+        android:name="com.application.trucksharing.Fragments.EstimateFragment"
+        android:label="fragment_estimate"
+        tools:layout="@layout/fragment_estimate" />
 </navigation>

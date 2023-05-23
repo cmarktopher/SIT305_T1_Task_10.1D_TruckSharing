@@ -1,26 +1,20 @@
 package com.application.trucksharing.Fragments;
 
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import com.application.trucksharing.DataModels.DeliveryOrder;
 import com.application.trucksharing.R;
 import com.application.trucksharing.ViewModels.DeliveryOrderViewModel;
-import com.application.trucksharing.databinding.FragmentNewDeliveryPageOneBinding;
 import com.application.trucksharing.databinding.FragmentNewDeliveryPageTwoBinding;
-import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
 
 /**
@@ -33,14 +27,6 @@ public class NewDeliveryFragmentPageTwo extends Fragment {
 
     }
 
-    public static NewDeliveryFragmentPageTwo newInstance() {
-
-        NewDeliveryFragmentPageTwo fragment = new NewDeliveryFragmentPageTwo();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -49,7 +35,7 @@ public class NewDeliveryFragmentPageTwo extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Create binding and view
@@ -115,12 +101,8 @@ public class NewDeliveryFragmentPageTwo extends Fragment {
 
             deliveryOrderViewModel.insertNewAvailableTruck();
 
-            // Do the transition
-            FragmentManager fragmentManager = ((AppCompatActivity) requireContext()).getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setReorderingAllowed(true)
-                    .replace(R.id.coreFragmentContainerView, HomeFragment.newInstance(), null)
-                    .commit();
+            // Pop our fragment stack except for the home fragment.
+            Navigation.findNavController(view).popBackStack(R.id.homeFragment, false);
         });
 
 

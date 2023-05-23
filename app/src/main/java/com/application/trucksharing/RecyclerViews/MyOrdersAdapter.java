@@ -1,18 +1,19 @@
 package com.application.trucksharing.RecyclerViews;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.trucksharing.DataModels.DeliveryOrder;
-import com.application.trucksharing.Fragments.OrderDetailsFragment;
 import com.application.trucksharing.R;
 import com.application.trucksharing.ViewModels.DeliveryOrderViewModel;
 
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class MyOrdersAdapter extends RecyclerView.Adapter<GeneralItemView> {
 
-    private FragmentActivity activity;
+    private final FragmentActivity activity;
     private List<DeliveryOrder> myOrders = new ArrayList<>();
 
     public MyOrdersAdapter(FragmentActivity activity) {
@@ -71,12 +72,8 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<GeneralItemView> {
             deliveryOrderViewModel.setCurrentSelectedOrder(myOrders.get(position));
 
             // Do the transition
-            FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setReorderingAllowed(true)
-                    .addToBackStack(null)
-                    .replace(R.id.coreFragmentContainerView, OrderDetailsFragment.newInstance() , null)
-                    .commit();
+            NavDirections action = com.application.trucksharing.Fragments.MyOrdersFragmentDirections.actionMyOrdersFragmentToOrderDetailsFragment();
+            Navigation.findNavController(cardView).navigate(action);
         });
     }
 
@@ -86,6 +83,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<GeneralItemView> {
         return myOrders.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void UpdateOrder(List<DeliveryOrder> newOrders){
         myOrders = newOrders;
         notifyDataSetChanged();

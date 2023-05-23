@@ -1,15 +1,17 @@
 package com.application.trucksharing.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.application.trucksharing.DataModels.DeliveryOrder;
 import com.application.trucksharing.RecyclerViews.GridCardTextDisplayAdapter;
@@ -26,12 +28,12 @@ import java.util.ArrayList;
 public class OrderDetailsFragment extends Fragment {
 
     // Our hashmap representing a goods description key and the corresponding text.
-    private ArrayList<String> goodsDescriptions;
+    private final ArrayList<String> goodsDescriptions;
 
     public OrderDetailsFragment() {
 
         // Initialize our good descriptions with some placeholder values
-        goodsDescriptions = new ArrayList<String>();
+        goodsDescriptions = new ArrayList<>();
         goodsDescriptions.add("Goods Type");
         goodsDescriptions.add("Vehicle Type");
         goodsDescriptions.add("Weight");
@@ -55,8 +57,9 @@ public class OrderDetailsFragment extends Fragment {
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Create our binding and view
@@ -83,6 +86,9 @@ public class OrderDetailsFragment extends Fragment {
 
         // Populate our order/delivery descriptions
         PopulateGoodsDescriptionAdapter(binding);
+
+        // Bind to the get estimates button
+        binding.orderDetailsFragmentGetEstimateButton.setOnClickListener(this::onGetEstimatePressed);
 
         return view;
     }
@@ -124,5 +130,15 @@ public class OrderDetailsFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    /**
+     * Handle response to get estimate button being pressed.
+     * @param view View being pressed.
+     */
+    void onGetEstimatePressed(View view){
+
+        NavDirections action = OrderDetailsFragmentDirections.actionOrderDetailsFragmentToEstimateFragment();
+        Navigation.findNavController(getView()).navigate(action);
     }
 }
